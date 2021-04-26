@@ -9,3 +9,8 @@
 - ~~file-loader: 处理其他格式文件，比如图片~~
 - url-loader: 类似于 file-loader，文件大小（单位 byte）低于指定限制时，可以返回一个 DataURL
 - image-webpack-loader: 图片压缩
+
+##### plugin
+
+- html-webpack-plugin: 打包时自动创建 index.html 文件
+- clean-webpack-plugin: 清理打包目录的文件
