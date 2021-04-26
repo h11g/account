@@ -1,0 +1,39 @@
+{
+  "name": "react-template",
+  "version": "1.0.0",
+  "description": "react template project",
+  "private": true,
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h11g/react-template.git"
+  },
+  "keywords": [
+    "react",
+    "typescript"
+  ],
+  "author": "h11g",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h11g/react-template/issues"
+  },
+  "homepage": "https://github.com/h11g/react-template#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "2.2.1",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
