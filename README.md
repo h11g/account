@@ -13,5 +13,5 @@
 ##### plugin
 
 - html-webpack-plugin: 打包时自动创建 index.html 文件
-- clean-webpack-plugin: 清理打包目录的文件
+- ~~clean-webpack-plugin: 清理打包目录的文件~~
 - mini-css-extract-plugin: 分离 css
