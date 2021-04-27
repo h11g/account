@@ -1,11 +1,11 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    app: './src/index.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -18,11 +18,11 @@ module.exports = {
     hot: true, // 热更新
     hotOnly: true,
     compress: true, // 是否启用 gzip 压缩
-    port: 3000,
-    open: true
+    port: 3000
     // clientLogLevel: 'warning', // 日志等级
     // stats: 'errors-only' // 终端仅打印 error
   },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -60,6 +60,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }
