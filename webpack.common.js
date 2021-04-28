@@ -15,6 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        include: path.resolve(__dirname, 'src'),
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader'
@@ -22,6 +23,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
+        include: path.resolve(__dirname, 'src'),
         use: [
           {
             loader: 'url-loader',
@@ -40,6 +42,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|ttf|otf)/,
+        include: path.resolve(__dirname, 'src'),
         use: [
           'file-loader'
         ]
@@ -51,6 +54,7 @@ module.exports = {
     new HtmlWebpackPlugin()
   ],
   optimization: {
+    moduleIds: 'deterministic',
     splitChunks: {
       cacheGroups: {
         vendor: {
