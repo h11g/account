@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { cube } from './math.js'
 import './style.css'
 import Print from './print'
