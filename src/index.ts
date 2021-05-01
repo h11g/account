@@ -15,13 +15,10 @@ import Print from './print'
 //   })
 // }
 
-function component () {
+function component() {
   const element = document.createElement('pre')
 
-  element.innerHTML = _.join([
-    'Hello webpack!',
-    '5 cubed is equal to ' + cube(5)
-  ])
+  element.innerHTML = _.join(['Hello webpack!', '5 cubed is equal to ' + cube(5)])
 
   element.onclick = Print.bind(null, 'Hello webpack!')
 
