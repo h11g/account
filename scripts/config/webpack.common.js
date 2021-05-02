@@ -1,55 +1,75 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
+const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const WebpackBar = require('webpackbar')
 const { PROJECT_PATH, isDev } = require('../contanst')
 
-const getCssLoaders = (importLoaders) => [
-  MiniCssExtractPlugin.loader,
-  {
-    loader: 'css-loader',
-    options: {
-      sourceMap: isDev,
-      importLoaders,
-    },
-  },
-  {
-    loader: 'postcss-loader',
-    options: {
-      postcssOptions: {
-        plugins: [
-          'postcss-flexbugs-fixes',
-          [
-            'postcss-preset-env',
-            {
-              autoprefixer: {
-                grid: true,
-                flexbox: 'no-2009',
-              },
-              stage: 3,
-            },
-          ],
-          'postcss-normalize',
-        ],
+const getCssLoaders = (importLoaders) =>
+  [
+    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+    !isDev && CssMinimizerPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        sourceMap: isDev,
+        importLoaders,
       },
     },
-  },
-]
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            'postcss-flexbugs-fixes',
+            [
+              'postcss-preset-env',
+              {
+                autoprefixer: {
+                  grid: true,
+                  flexbox: 'no-2009',
+                },
+                stage: 3,
+              },
+            ],
+            'postcss-normalize',
+          ],
+        },
+      },
+    },
+  ].filter(Boolean)
 
 module.exports = {
   entry: {
-    app: path.resolve(PROJECT_PATH, './src/index.ts'),
+    app: resolve(PROJECT_PATH, './src/index.tsx'),
   },
   output: {
     filename: `[name]${isDev ? '' : '.[contenthash]'}.bundle.js`,
-    path: path.resolve(PROJECT_PATH, './dist'),
+    path: resolve(PROJECT_PATH, './dist'),
     clean: true,
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.json'],
+    alias: {
+      src: resolve(PROJECT_PATH, './src'),
+      common: resolve(PROJECT_PATH, './src/common'),
+      public: resolve(PROJECT_PATH, './public'),
+      css: resolve(PROJECT_PATH, './src/css'),
+    },
   },
   module: {
     rules: [
       {
+        test: /\.(tsx?|js)$/,
+        loader: 'babel-loader',
+        options: { cacheDirectory: true },
+        exclude: /node_modules/,
+      },
+      {
         test: /\.css$/,
-        include: path.resolve(PROJECT_PATH, 'src'),
+        include: resolve(PROJECT_PATH, 'src'),
         use: getCssLoaders(1),
       },
       {
@@ -104,13 +124,29 @@ module.exports = {
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: `[name]${isDev ? '' : '.[contenthash]'}.css`,
+    new CopyPlugin({
+      patterns: [
+        {
+          context: resolve(PROJECT_PATH, './public'),
+          from: '*',
+          to: resolve(PROJECT_PATH, './dist'),
+          toType: 'dir',
+        },
+      ],
     }),
+    !isDev &&
+      new MiniCssExtractPlugin({
+        filename: `[name]${isDev ? '' : '.[contenthash]'}.css`,
+      }),
     new HtmlWebpackPlugin(),
-  ],
+    new WebpackBar({
+      name: isDev ? '正在启动' : '正在打包',
+      color: '#fa8c16',
+    }),
+  ].filter(Boolean),
   optimization: {
     moduleIds: 'deterministic',
+    minimizer: [new CssMinimizerPlugin()],
     splitChunks: {
       cacheGroups: {
         vendor: {
@@ -121,8 +157,5 @@ module.exports = {
       },
     },
     runtimeChunk: 'single',
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
   },
 }

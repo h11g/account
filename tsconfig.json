@@ -7,6 +7,19 @@
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
-    "moduleResolution": "node"
-  }
+    "isolatedModules": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"],
+      "common/*": ["src/common/*"],
+      "public/*": ["public/*"],
+      "css/*": ["src/css/*"]
+    }
+  },
+  "exclude": ["node_modules"]
 }
