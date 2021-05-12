@@ -73,13 +73,17 @@ module.exports = {
         use: getCssLoaders(1),
       },
       {
-        test: /\.less$/i,
+        test: /\.scss$/i,
         use: [
           ...getCssLoaders(2),
           {
-            loader: 'less-loader',
+            loader: 'sass-loader',
             options: {
               sourceMap: isDev,
+              sassOptions: {
+                // 禁用 fiber, https://webpack.js.org/loaders/sass-loader/
+                fiber: false,
+              },
             },
           },
         ],

@@ -1,6 +1,5 @@
 import React from 'react'
-import './index.less'
-
+import './style.scss'
 interface IProps {
   name: string
   age: number
