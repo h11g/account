@@ -150,7 +150,14 @@ module.exports = {
   ].filter(Boolean),
   optimization: {
     moduleIds: 'deterministic',
-    minimizer: [new CssMinimizerPlugin()],
+    minimizer: [
+      /**
+       * 需要使用 `...` 来扩展已经存在的 minimizers,否则比如会导致 js 压缩失效
+       * @see https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production
+       */
+      `...`,
+      new CssMinimizerPlugin(),
+    ],
     splitChunks: {
       cacheGroups: {
         vendor: {
