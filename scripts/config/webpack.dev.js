@@ -16,7 +16,6 @@ module.exports = merge(common, {
     host: SERVER_HOST,
     port: SERVER_PORT,
     hot: true, // 热更新
-    hotOnly: true,
     compress: true, // 是否启用 gzip 压缩
     open: true,
     // clientLogLevel: 'warning', // 日志等级
