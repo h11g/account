@@ -10,7 +10,6 @@ const { PROJECT_PATH, isDev } = require('../contanst')
 const getCssLoaders = (importLoaders) =>
   [
     isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-    !isDev && CssMinimizerPlugin.loader,
     {
       loader: 'css-loader',
       options: {
