@@ -23,5 +23,6 @@ module.exports = {
     indent: 'off',
     // https://github.com/eslint/eslint/issues/13956 解决 vscode eslint 插件报错问题
     '@typescript-eslint/indent': ['error', 2],
+    'react/prop-types': 'off',
   },
 }

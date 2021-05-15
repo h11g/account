@@ -1,5 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from 'src/app'
+import Root from './frame'
 
-ReactDOM.render(<App name='React' />, document.querySelector('#root'))
+ReactDOM.render(<Root />, document.querySelector('#root'))
