@@ -1,4 +1,4 @@
-import React, { FC, ComponentType } from 'react'
+import React, { FC, ComponentType, memo } from 'react'
 import { Switch, Route, RouteComponentProps } from 'react-router-dom'
 import _ from 'lodash'
 import loadable from '@loadable/component'
@@ -57,4 +57,4 @@ const AutoRouter: FC<AutoRouterProps> = ({ children, noMatch = NoMatch, loading 
   )
 }
 
-export default AutoRouter
+export default memo(AutoRouter)
