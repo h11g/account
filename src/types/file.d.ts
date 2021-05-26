@@ -1,6 +1,7 @@
 declare module '*.svg' {
-  const path: string
-  export default path
+  import React from 'react'
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
+  export default content
 }
 
 declare module '*.bmp' {

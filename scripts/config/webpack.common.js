@@ -53,6 +53,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.json'],
     alias: {
       src: resolve(PROJECT_PATH, './src'),
+      svg: resolve(PROJECT_PATH, './src/svg'),
       common: resolve(PROJECT_PATH, './src/common'),
       public: resolve(PROJECT_PATH, './public'),
       css: resolve(PROJECT_PATH, './src/css'),
@@ -88,7 +89,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|jpe?g|gif|bmp)$/,
+        test: /\.(png|jpe?g|gif|bmp)$/,
         use: [
           {
             loader: 'url-loader',
@@ -103,6 +104,22 @@ module.exports = {
             options: {
               bypassOnDebug: true, // webpack@1.x
               disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              icon: true,
+              expandProps: 'start',
+              svgProps: {
+                fill: 'currentColor',
+                className: "{(props.className || '')}",
+              },
             },
           },
         ],

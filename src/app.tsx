@@ -1,16 +1,17 @@
 import React from 'react'
 import './style.scss'
+import Icon from 'svg/icon.svg'
+
 interface IProps {
   name: string
-  age: number
 }
 
 function App(props: IProps): JSX.Element {
-  const { name, age } = props
+  const { name } = props
   return (
     <div className='app'>
-      <div>hello</div>
-      <span>{`Hello! I am ${name}, ${age} years old.`}</span>
+      <Icon className='icon' />
+      <span>{`Hello! ${name}`}</span>
     </div>
   )
 }

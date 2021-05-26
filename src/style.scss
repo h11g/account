@@ -5,7 +5,14 @@ body {
 }
 
 .app {
+  display: flex;
+  align-items: center;
   font-size: 20px;
+}
+
+.icon {
+  color: red;
+  font-size: 30px;
 }
 
 .unuse {
