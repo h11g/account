@@ -9,7 +9,7 @@ const initialState: SliceState = {
 }
 
 const counterSlice = createSlice({
-  name: 'root',
+  name: 'counter',
   initialState,
   reducers: {
     increment: (state) => {
