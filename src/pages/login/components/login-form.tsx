@@ -14,7 +14,7 @@ const LoginForm = () => {
         <Input.Password prefix={<LockOutlined />} placeholder='请输入密码' />
       </FormItem>
       <FormItem>
-        <Button type='primary' htmlType='submit' className='login-form-button'>
+        <Button type='primary' htmlType='submit' className='tw-w-full'>
           登录
         </Button>
       </FormItem>

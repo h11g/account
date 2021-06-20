@@ -34,6 +34,7 @@ const getCssLoaders = (importLoaders) =>
                 stage: 3,
               },
             ],
+            'tailwindcss',
             'postcss-normalize',
           ],
         },
@@ -212,7 +213,7 @@ module.exports = {
     runtimeChunk: 'single',
   },
   performance: {
-    maxEntrypointSize: 400000,
-    maxAssetSize: 400000,
+    maxEntrypointSize: 800000,
+    maxAssetSize: 800000,
   },
 }
