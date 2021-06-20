@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -89,6 +90,30 @@ module.exports = {
         ],
       },
       {
+        test: /\.less$/i,
+        use: [
+          ...getCssLoaders(2),
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: isDev,
+              lessOptions: {
+                // Deprecated，定制 antd 主题变量需要用到
+                javascriptEnabled: true,
+                modifyVars: {
+                  'primary-color': '#BE8E62',
+                  'link-color': '#BE8E62',
+                  'heading-color': '#A79E9F',
+                  'text-color': '#A79E9F',
+                  'text-color-secondary': '#C9C4CA',
+                  'border-color-base': '#C7AD94',
+                },
+              },
+            },
+          },
+        ],
+      },
+      {
         test: /\.(png|jpe?g|gif|bmp)$/,
         use: [
           {
@@ -144,6 +169,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new AntdDayjsWebpackPlugin(),
     new CopyPlugin({
       patterns: [
         {
