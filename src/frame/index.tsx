@@ -6,6 +6,8 @@ import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale/zh_CN'
 import store from 'src/redux/root_store'
 
+import './request'
+
 import 'src/css/index.less'
 import 'antd/dist/antd.less'
 

@@ -31,4 +31,21 @@ function httpResolve<T>(response: AxiosResponse<Response<T>>, sucCode: number[])
   return json
 }
 
-export { tailRequestTrim, requestTrim, httpResolve }
+function getErrorMessage(error: { [key: string]: any }): string {
+  let message
+  if (error.response) {
+    message = `${error.response.status} ${error.response.statusText}`
+  } else if (error.request) {
+    if (error.message && error.message.includes('timeout')) {
+      message = '连接超时'
+    } else {
+      message = '服务器错误'
+    }
+  } else {
+    message = error.message
+  }
+
+  return message
+}
+
+export { tailRequestTrim, requestTrim, httpResolve, getErrorMessage }

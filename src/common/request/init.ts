@@ -27,7 +27,7 @@ const initAuth = (url: string, field: string) => {
     const { url } = response.config
 
     if (authInfo?.url === url && authInfo?.field) {
-      const accessToken = _.get(json, authInfo.field)
+      const accessToken = _.get(json, `data.${authInfo.field}`)
       if (accessToken && typeof accessToken === 'string') {
         Storage.set(accessTokenKey, accessToken)
       }

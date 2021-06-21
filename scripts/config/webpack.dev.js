@@ -3,7 +3,7 @@ const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
 const { SERVER_HOST, SERVER_PORT, isDev } = require('../contanst')
 const path = require('path')
-const proxySetting = require('../../config/local')
+const { proxy } = require('../../config/local')
 
 module.exports = merge(common, {
   mode: 'development',
@@ -20,6 +20,6 @@ module.exports = merge(common, {
     open: true,
     // clientLogLevel: 'warning', // 日志等级
     // stats: 'errors-only' // 终端仅打印 error
-    proxy: { ...proxySetting },
+    proxy: { ...proxy },
   },
 })

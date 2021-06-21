@@ -1,9 +1,9 @@
-const proxySettings = {
+module.exports = {
   // 接口代理1
-  '/api/': {
-    target: 'http://localhost:3000',
-    changeOrigin: true,
+  proxy: {
+    '/mymoney': {
+      target: 'http://127.0.0.1:7001',
+      changeOrigin: true,
+    },
   },
 }
-
-module.exports = proxySettings

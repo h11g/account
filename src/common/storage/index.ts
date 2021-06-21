@@ -11,14 +11,14 @@ class StorageFactory {
 
   set(key: string, value: any): void {
     try {
-      this.target.setItem(`${this.prefix}${key}`, JSON.stringify(value))
+      this.target.setItem(`${this.prefix}_${key}`, JSON.stringify(value))
     } catch (err) {
       console.warn('Storage set error', err)
     }
   }
 
   get(key: string): any {
-    const value = this.target.getItem(this.prefix + key)
+    const value = this.target.getItem(`${this.prefix}_${key}`)
     try {
       return value ? JSON.parse(value) : value
     } catch (err) {
@@ -29,7 +29,7 @@ class StorageFactory {
   }
 
   remove(key: string): void {
-    this.target.removeItem(this.prefix + key)
+    this.target.removeItem(`${this.prefix}_${key}`)
   }
 
   clear(): void {

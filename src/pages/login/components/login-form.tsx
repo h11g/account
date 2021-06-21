@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Form, Input, Button } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-
+import { Request } from 'common/request'
 const FormItem = Form.Item
 
 interface IProps {
@@ -10,7 +10,12 @@ interface IProps {
 
 const LoginForm: FC<IProps> = ({ toRegist }) => {
   const handleLogin = (values: any) => {
-    console.log('%c [ values ]', 'font-size:13px; background:pink; color:#bf2c9f;', values)
+    Request<LoginResponse>('/mymoney/auth/login')
+      .data({ username: values.username, password: values.password })
+      .post()
+      .then((res) => {
+        console.log(res.data.userInfo)
+      })
   }
 
   return (
