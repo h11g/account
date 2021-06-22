@@ -15,7 +15,7 @@ const configError = (errorCallback: (msg: string, res?: any) => void) => {
       return response
     },
     (error) => {
-      errorCallback(getErrorMessage(error))
+      errorCallback(getErrorMessage(error), error.response)
       return Promise.reject(error)
     }
   )

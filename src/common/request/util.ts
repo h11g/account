@@ -34,7 +34,7 @@ function httpResolve<T>(response: AxiosResponse<Response<T>>, sucCode: number[])
 function getErrorMessage(error: { [key: string]: any }): string {
   let message
   if (error.response) {
-    message = `${error.response.status} ${error.response.statusText}`
+    message = `${error.response.data?.msg}`
   } else if (error.request) {
     if (error.message && error.message.includes('timeout')) {
       message = '连接超时'

@@ -5,19 +5,22 @@ import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale/zh_CN'
 import store from 'src/redux/root_store'
-
-import './request'
+import Bootstrap from './bootstrap'
 
 import 'src/css/index.less'
 import 'antd/dist/antd.less'
+
+import './request'
 
 const Root = () => (
   <Provider store={store}>
     <ConfigProvider locale={zhCN}>
       <Router>
-        <AutoRouter>
-          <Redirect exact from='/' to='/home' />
-        </AutoRouter>
+        <Bootstrap>
+          <AutoRouter>
+            <Redirect exact from='/' to='/home' />
+          </AutoRouter>
+        </Bootstrap>
       </Router>
     </ConfigProvider>
   </Provider>

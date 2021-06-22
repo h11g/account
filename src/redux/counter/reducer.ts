@@ -13,6 +13,7 @@ const counterSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
+      console.log('%c [ reducers increment ]', 'font-size:13px; background:pink; color:#bf2c9f;')
       state.count += 1
     },
     decrement: (state) => {
