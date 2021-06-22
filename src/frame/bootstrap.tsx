@@ -9,7 +9,7 @@ const Bootstrap: FC = ({ children }) => {
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    if (location.pathname !== '/login') {
+    if (location.pathname !== '/login' && location.pathname !== '/') {
       dispatch(getUserInfo())
     }
   }, [location.pathname])

@@ -2,6 +2,10 @@ module.exports = {
   prefix: 'tw-',
   purge: ['./src/**/*.html', './src/**/*.tsx', './src/**/*.jsx'],
   darkMode: false, // or 'media' or 'class'
+  // 禁用 tailwind 自己的 normailze, 与 antd 的冲突
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     screens: {
       lg: '992px',
