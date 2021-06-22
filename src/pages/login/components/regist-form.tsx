@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form, Input, Button } from 'antd'
 import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons'
+import { Request } from 'common/request'
 
 const FormItem = Form.Item
 
@@ -9,8 +11,17 @@ interface IProps {
 }
 
 const RegistForm: FC<IProps> = ({ toLogin }) => {
+  const history = useHistory()
+
   const handleRegist = (values: any) => {
-    console.log('%c [ values ]', 'font-size:13px; background:pink; color:#bf2c9f;', values)
+    Request<AuthResponse>('/mymoney/auth/regist')
+      .data({ username: values.username, password: values.password, email: values.email })
+      .post()
+      .then((res) => {
+        if (res.status) {
+          history.replace('/home')
+        }
+      })
   }
 
   return (

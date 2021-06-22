@@ -1,4 +1,4 @@
-declare interface LoginResponse {
+declare interface AuthResponse {
   access_token: string
   userInfo: any
 }

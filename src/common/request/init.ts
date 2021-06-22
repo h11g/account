@@ -3,11 +3,11 @@ import { instance } from './request'
 import Storage from 'common/storage'
 
 let accessToken: string | undefined
-let authInfo: { url: string; field: string } | undefined
+let authInfo: { url: string[]; field: string } | undefined
 const accessTokenKey = 'ACCESS_TOKEN_KEY'
 const authInfoKey = 'AUTH_INTERFACE_KEY'
 
-const initAuth = (url: string, field: string) => {
+const initAuth = (url: string[], field: string) => {
   authInfo = { url, field }
   Storage.set(authInfoKey, authInfo)
 
@@ -26,7 +26,7 @@ const initAuth = (url: string, field: string) => {
     const json = response.data
     const { url } = response.config
 
-    if (authInfo?.url === url && authInfo?.field) {
+    if (_.includes(authInfo?.url, url) && authInfo?.field) {
       const accessToken = _.get(json, `data.${authInfo.field}`)
       if (accessToken && typeof accessToken === 'string') {
         Storage.set(accessTokenKey, accessToken)
