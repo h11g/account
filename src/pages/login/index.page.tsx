@@ -12,7 +12,7 @@ const Login = () => {
   }
 
   return (
-    <Row align='middle' justify='center'>
+    <Row align='middle' justify='center' className='tw-mt-6'>
       <Col md={{ span: 8 }} lg={{ span: 6 }}>
         <Card>{isRegist ? <RegistForm toLogin={handleToRegist} /> : <LoginForm toRegist={handleToRegist} />}</Card>
       </Col>
