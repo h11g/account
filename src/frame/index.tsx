@@ -1,11 +1,11 @@
 import React from 'react'
-import { HashRouter as Router, Redirect } from 'react-router-dom'
-import AutoRouter from './components/auto_router'
+import { HashRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale/zh_CN'
 import store from 'src/redux/root_store'
 import Bootstrap from './bootstrap'
+import App from './app'
 
 import 'src/css/index.less'
 import 'antd/dist/antd.less'
@@ -17,9 +17,7 @@ const Root = () => (
     <ConfigProvider locale={zhCN}>
       <Router>
         <Bootstrap>
-          <AutoRouter>
-            <Redirect exact from='/' to='/home' />
-          </AutoRouter>
+          <App />
         </Bootstrap>
       </Router>
     </ConfigProvider>
