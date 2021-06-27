@@ -7,8 +7,8 @@ import store from 'src/redux/root_store'
 import Bootstrap from './bootstrap'
 import App from './app'
 
-import 'src/css/index.less'
 import 'antd/dist/antd.less'
+import 'src/css/index.less'
 
 import './request'
 

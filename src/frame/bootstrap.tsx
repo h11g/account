@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, memo, HTMLAttributes } from 'react'
 import { useAsyncFn } from 'react-use'
 import { Spin } from 'antd'
 import { getUserInfoSuccess } from 'src/redux/user/reducer'
 import { useAppDispatch } from 'src/hooks'
 import { fetchUserInfo } from 'src/api/user'
 
-const Bootstrap: FC = ({ children }) => {
+const Bootstrap: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
   const dispatch = useAppDispatch()
   const [state, doFetch] = useAsyncFn(async () => {
     const user = await fetchUserInfo()
@@ -29,4 +29,4 @@ const Bootstrap: FC = ({ children }) => {
   return <>{children}</>
 }
 
-export default Bootstrap
+export default memo(Bootstrap)

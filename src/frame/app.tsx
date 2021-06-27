@@ -9,8 +9,23 @@ const App = () => {
 
   const isFull = isFullScreen(pathname)
 
+  const menus = [
+    {
+      key: 'overview',
+      name: '概览',
+    },
+    {
+      key: 'record',
+      name: '记一笔',
+    },
+    {
+      key: 'account',
+      name: '账户',
+    },
+  ]
+
   return (
-    <Framework isFullScreen={isFull}>
+    <Framework isFullScreen={isFull} menuList={menus}>
       <AutoRouter>
         <Redirect exact from='/' to='/home' />
       </AutoRouter>

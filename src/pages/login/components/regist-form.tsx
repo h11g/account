@@ -62,7 +62,7 @@ const RegistForm: FC<IProps> = ({ toLogin }) => {
         ]}
         hasFeedback
       >
-        <Input.Password prefix={<LockOutlined />} placeholder='请输入密码' />
+        <Input.Password minLength={6} prefix={<LockOutlined />} placeholder='请输入密码' />
       </FormItem>
       <FormItem
         name='confirm'
