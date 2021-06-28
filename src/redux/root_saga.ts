@@ -1,6 +1,6 @@
 import { all, take, select } from 'redux-saga/effects'
-import { counterSaga } from './counter/saga'
 import { userSaga } from './user/saga'
+import { accountSaga } from './account/saga'
 
 function* loggerSaga(): Generator<any, any, any> {
   while (true) {
@@ -11,7 +11,7 @@ function* loggerSaga(): Generator<any, any, any> {
 }
 
 export default function* rootSaga() {
-  const sagas = [counterSaga(), userSaga()]
+  const sagas: any[] = [userSaga(), accountSaga()]
   if (process.env.NODE_ENV !== 'production') {
     sagas.push(loggerSaga())
   }

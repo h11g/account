@@ -43,12 +43,6 @@ class RequestBase<Data> {
     return this
   }
 
-  public get(): Promise<Response<Data>> {
-    this._config.data = this._data
-    this._config.method = 'GET'
-    return instance.request<Response<Data>>(this._config).then((res) => httpResolve(res, this._sucCode))
-  }
-
   public post(): Promise<Response<Data>> {
     this._config.data = this._data
     this._config.method = 'POST'

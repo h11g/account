@@ -1,10 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import themeReducer from 'src/redux/theme/reducer'
-import counterReducer from 'src/redux/counter/reducer'
 import userRerducer from 'src/redux/user/reducer'
+import accountReducer from 'src/redux/account/reducer'
 
 export default combineReducers({
-  theme: themeReducer,
-  counter: counterReducer,
   user: userRerducer,
+  account: accountReducer,
 })

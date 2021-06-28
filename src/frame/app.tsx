@@ -10,7 +10,7 @@ import { clearAuth } from 'common/request'
 import { LogoutOutlined, MoneyCollectOutlined } from '@ant-design/icons'
 
 enum MenuKeys {
-  OVERVIEWW = 'home',
+  OVERVIEW = 'home',
   RECORD = 'record',
   ACCOUNT = 'account',
 }
@@ -24,7 +24,7 @@ const App = () => {
 
   const menus = [
     {
-      key: MenuKeys.OVERVIEWW,
+      key: MenuKeys.OVERVIEW,
       name: '概览',
     },
     {
@@ -54,7 +54,7 @@ const App = () => {
   const renderHeader = (
     <div className='tw-flex tw-justify-between tw-items-center'>
       <MoneyCollectOutlined className='tw-text-primary' style={{ fontSize: 30 }} />
-      <Menu mode='horizontal' defaultSelectedKeys={[menus[0].key]} onSelect={handleMenuSelect}>
+      <Menu mode='horizontal' defaultSelectedKeys={[MenuKeys.OVERVIEW]} onSelect={handleMenuSelect}>
         {_.map(menus, (menu) => (
           <Menu.Item key={menu.key}>{menu.name}</Menu.Item>
         ))}
