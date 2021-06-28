@@ -18,7 +18,7 @@ const LoginForm: FC<IProps> = ({ toRegist }) => {
       .post()
       .then((res) => {
         if (res.status) {
-          history.replace('/home')
+          window.location.href = window.location.href.replace(window.location.hash, '')
         }
       })
   }

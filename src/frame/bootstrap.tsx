@@ -14,6 +14,9 @@ const Bootstrap: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
 
   useEffect(() => {
     doFetch().then((res) => {
+      if (res instanceof Error) {
+        return
+      }
       dispatch(getUserInfoSuccess(res.data))
     })
   }, [])
