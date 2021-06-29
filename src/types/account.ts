@@ -1,9 +1,9 @@
-declare enum BookType {
+export enum BookType {
   DAILY = 1,
   TRAVEL = 2,
 }
 
-declare enum AccountType {
+export enum AccountType {
   OTHER = 0,
   CASH = 1,
   WECHAT = 2,
@@ -12,23 +12,24 @@ declare enum AccountType {
   CREDIT_CARD = 5,
 }
 
-declare enum AccountGroup {
+export enum AccountGroup {
   CAPITAL = 1,
   CREDIT_CARD = 2,
   INVESTING = 3,
   DEBTS = 4,
 }
 
-declare interface Book {
+export interface Book {
   name: string
   type: BookType
   _id: string
 }
 
-declare interface Account {
+export interface Account {
   name: string
   type: AccountType
   book_id: string
   group: AccountGroup
+  balance: number
   _id: string
 }

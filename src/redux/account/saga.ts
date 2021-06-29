@@ -4,6 +4,7 @@ import { Response } from 'common/request'
 import { getBooks, getBooksSuccess, getAccounts, getAccountsSuccess } from './reducer'
 import { fetchBooks, fetchAccounts } from 'src/api/account'
 import type { RootState } from 'src/redux/root_store'
+import { Book, Account } from 'src/types'
 
 export function* accountSaga() {
   yield takeLatest(getBooks, watchGetBooks)

@@ -1,5 +1,5 @@
 import { Request } from 'common/request'
-
+import { Book, Account } from 'src/types'
 export const fetchBooks = () => {
   return Request<Book[]>('/mymoney/book/list').post()
 }
