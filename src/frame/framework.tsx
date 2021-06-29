@@ -18,7 +18,7 @@ const Framework: FC<IProps> = ({ children, isFullScreen, header }) => {
       ) : (
         <Layout className='tw-h-screen'>
           <Header className='tw-z-50 tw-w-full tw-fixed tw-bg-white'>{header}</Header>
-          <Content className='' style={{ padding: '0 50px', marginTop: 64 }}>
+          <Content className='' style={{ padding: '0 100px', marginTop: 64 }}>
             <div className='tw-bg-white tw-p-4 tw-mt-4 tw-min-h-full'>{children}</div>
           </Content>
           <Footer className='tw-text-center'>账本 ©2021 Created by h11g</Footer>

@@ -6,7 +6,9 @@ function* loggerSaga(): Generator<any, any, any> {
   while (true) {
     const action = yield take('*')
     const state = yield select()
-    console.log('%c [ redux action ]', 'font-size:13px; background:pink; color:#bf2c9f;', action.type, state)
+    console.groupCollapsed('%c [ redux action ]', 'font-size:13px; background:pink; color:#bf2c9f;', action.type)
+    console.log('%c [ state ]', 'font-size:13px; background:pink; color:#bf2c9f;', state)
+    console.groupEnd()
   }
 }
 
