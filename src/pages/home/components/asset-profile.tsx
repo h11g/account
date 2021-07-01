@@ -2,15 +2,17 @@ import React from 'react'
 import { Card, Row, Col, Statistic, Divider } from 'antd'
 import _ from 'lodash'
 import { useAppSelector } from 'src/hooks'
-import { AccountType, Account } from 'src/types'
+import { Account } from 'src/types'
 import Big from 'big.js'
 import { positiveColor, negativeColor } from 'common/color'
 
 const AssetProfile = () => {
   const accounts = useAppSelector((state) => state.account.accounts)
 
-  const assetAccount = _.filter(accounts, (account) => account.type !== AccountType.CREDIT_CARD)
-  const liabilityAccount = _.filter(accounts, (account) => account.type === AccountType.CREDIT_CARD)
+  // const assetAccount = _.filter(accounts, (account) => account.type !== AccountType.CREDIT_CARD)
+  // const liabilityAccount = _.filter(accounts, (account) => account.type === AccountType.CREDIT_CARD)
+  const assetAccount = _.filter(accounts, (account) => account.type !== '')
+  const liabilityAccount = _.filter(accounts, (account) => account.type === '')
 
   const getAccountsBalance = (accounts: Account[]) => {
     return _.reduce(

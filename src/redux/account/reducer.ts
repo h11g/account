@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Book, Account } from 'src/types'
+import { Book, Account, AccountGroup } from 'src/types'
 
 interface SliceState {
   books: Book[]
   currentBookId: string
   accounts: Account[]
+  accountGroups: AccountGroup[]
 }
 
 const initialState: SliceState = {
   books: [],
   currentBookId: '',
   accounts: [],
+  accountGroups: [],
 }
 
 const accountSlice = createSlice({
@@ -24,6 +26,10 @@ const accountSlice = createSlice({
         state.currentBookId = action.payload[0]._id
       }
     },
+    getAccountGroups: (state) => state,
+    getAccountGroupsSuccess: (state, action: PayloadAction<AccountGroup[]>) => {
+      state.accountGroups = action.payload
+    },
     getAccounts: (state, action: PayloadAction<string>) => state,
     getAccountsSuccess: (state, action: PayloadAction<Account[]>) => {
       state.accounts = action.payload
@@ -31,5 +37,6 @@ const accountSlice = createSlice({
   },
 })
 
-export const { getBooks, getBooksSuccess, getAccounts, getAccountsSuccess } = accountSlice.actions
+export const { getBooks, getBooksSuccess, getAccounts, getAccountsSuccess, getAccountGroups, getAccountGroupsSuccess } =
+  accountSlice.actions
 export default accountSlice.reducer

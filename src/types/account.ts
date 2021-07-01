@@ -3,20 +3,10 @@ export enum BookType {
   TRAVEL = 2,
 }
 
-export enum AccountType {
-  OTHER = 0,
-  CASH = 1,
-  WECHAT = 2,
-  ALIPAY = 3,
-  BANK_CARD = 4,
-  CREDIT_CARD = 5,
-}
-
-export enum AccountGroup {
-  CAPITAL = 1,
-  CREDIT_CARD = 2,
-  INVESTING = 3,
-  DEBTS = 4,
+export interface AccountGroup {
+  _id: string
+  name: string
+  account_type: { name: string; id: string }[]
 }
 
 export interface Book {
@@ -27,9 +17,9 @@ export interface Book {
 
 export interface Account {
   name: string
-  type: AccountType
+  type: string
   book_id: string
-  group: AccountGroup
+  group: string
   balance: number
   _id: string
 }

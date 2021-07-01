@@ -51,10 +51,12 @@ const App = () => {
     history.push(`/${key}`)
   }
 
+  const selectedMenuKey = _.split(pathname, '/')[1]
+
   const renderHeader = (
     <div className='tw-flex tw-justify-between tw-items-center'>
       <MoneyCollectOutlined className='tw-text-primary' style={{ fontSize: 30 }} />
-      <Menu mode='horizontal' defaultSelectedKeys={[MenuKeys.OVERVIEW]} onSelect={handleMenuSelect}>
+      <Menu mode='horizontal' selectedKeys={[selectedMenuKey]} onSelect={handleMenuSelect}>
         {_.map(menus, (menu) => (
           <Menu.Item key={menu.key}>{menu.name}</Menu.Item>
         ))}
