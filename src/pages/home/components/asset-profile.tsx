@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { useAppSelector } from 'src/hooks'
 import { Account } from 'src/types'
 import Big from 'big.js'
-import { positiveColor, negativeColor } from 'common/color'
+import { positiveColor, negativeColor, banlanceColor } from 'common/color'
 
 const AssetProfile = () => {
   const accounts = useAppSelector((state) => state.account.accounts)
@@ -44,7 +44,7 @@ const AssetProfile = () => {
           <Divider type='vertical' className='tw-h-6' />
         </Col>
         <Col span={6}>
-          <Statistic precision={2} title='净资产' value={+netAsset} valueStyle={{ color: '#312e2d' }} />
+          <Statistic precision={2} title='净资产' value={+netAsset} valueStyle={{ color: banlanceColor }} />
         </Col>
       </Row>
     </Card>
