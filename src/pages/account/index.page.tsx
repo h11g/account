@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import _ from 'lodash'
+import { Space } from 'antd'
 import MenuBar from './components/menu-bar'
 import AccountHeader from './components/account-header'
+import AccountDetail from './components/account-detail'
 import { useAppDispatch, useAppSelector } from 'src/hooks'
 import { getBooks, getAccountGroups } from 'src/redux/account/reducer'
 import { Account, AccountGroup } from 'src/types'
@@ -45,7 +47,10 @@ const Account = () => {
     <div className='tw-flex tw-min-h-full'>
       <MenuBar selectedKeys={[selectKey]} menus={menuDatas} onSelected={handleSelect} />
       <div className='tw-w-full tw-ml-3'>
-        <AccountHeader accountId={selectKey} />
+        <Space direction='vertical' className='tw-w-full'>
+          <AccountHeader accountId={selectKey} />
+          <AccountDetail />
+        </Space>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Card, Row, Col, Statistic, Divider, Button } from 'antd'
-import { useAppDispatch, useAppSelector } from 'src/hooks'
+import { Card, Row, Col, Statistic, Divider, Button, Modal } from 'antd'
+import { useAppSelector } from 'src/hooks'
 import _ from 'lodash'
 import { Account } from 'src/types'
 import { positiveColor, negativeColor, banlanceColor } from 'common/color'
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const AccountHeader: FC<IProps> = ({ accountId }) => {
-  const { accounts, accountGroups } = useAppSelector((state) => state.account)
+  const { accounts } = useAppSelector((state) => state.account)
   const [account, setCurrentAccount] = useState<Account>()
 
   useEffect(() => {
@@ -18,8 +18,17 @@ const AccountHeader: FC<IProps> = ({ accountId }) => {
     setCurrentAccount(acc)
   }, [accountId])
 
+  const handleCreateAccount = () => {
+    console.log('create')
+  }
+
   return (
-    <Card bordered={false} title={account?.name} extra={<Button>添加账户</Button>} hoverable>
+    <Card
+      hoverable
+      bordered={false}
+      title={account?.name}
+      extra={<Button onClick={handleCreateAccount}>添加账户</Button>}
+    >
       <Row justify='center' align='middle' gutter={24}>
         <Col span={6}>
           <Statistic precision={2} title='余额' value={0} valueStyle={{ color: banlanceColor }} />
