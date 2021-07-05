@@ -21,10 +21,6 @@ const MenuBar: FC<IProps> = ({ menus, selectedKeys, onSelected }) => {
     onSelected(selectedKeys)
   }
 
-  if (!menus.length) {
-    return null
-  }
-
   const defaultOpenKeys = _.map(menus, (menu) => {
     return menu.group._id
   })
@@ -39,6 +35,10 @@ const MenuBar: FC<IProps> = ({ menus, selectedKeys, onSelected }) => {
         })
       )
     }
+  }
+
+  if (!menus.length) {
+    return null
   }
 
   return (

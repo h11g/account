@@ -1,18 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType } from 'src/types'
+import _ from 'lodash'
 
 interface SliceState {
   books: Book[]
   currentBookId: string
   accounts: Account[]
   accountGroups: AccountGroup[]
+  accountMapById: { [key: string]: Account }
+  accountMapByGroupId: { [key: string]: Account[] }
+  accountGroupMapById: { [key: string]: AccountGroup }
 }
 
 const initialState: SliceState = {
   books: [],
   currentBookId: '',
   accounts: [],
+  accountMapById: {},
+  accountMapByGroupId: {},
   accountGroups: [],
+  accountGroupMapById: {},
 }
 
 const accountSlice = createSlice({
@@ -29,15 +36,16 @@ const accountSlice = createSlice({
     getAccountGroups: (state) => state,
     getAccountGroupsSuccess: (state, action: PayloadAction<AccountGroup[]>) => {
       state.accountGroups = action.payload
+      state.accountGroupMapById = _.keyBy(action.payload, '_id')
     },
     getAccounts: (state, action: PayloadAction<string>) => state,
     getAccountsSuccess: (state, action: PayloadAction<Account[]>) => {
       state.accounts = action.payload
+      state.accountMapById = _.keyBy(action.payload, '_id')
+      state.accountMapByGroupId = _.groupBy(action.payload, 'group')
     },
     createAccount: (state, action: PayloadAction<RequestParamType<CreateAccountParam>>) => state,
-    createAccountSuccess: (state, action: PayloadAction<Account[]>) => {
-      state.accounts = action.payload
-    },
+    deleteAccount: (state, action: PayloadAction<string>) => state,
   },
 })
 
@@ -49,6 +57,6 @@ export const {
   getAccountGroups,
   getAccountGroupsSuccess,
   createAccount,
-  createAccountSuccess,
+  deleteAccount,
 } = accountSlice.actions
 export default accountSlice.reducer

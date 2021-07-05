@@ -9,10 +9,10 @@ import {
   getAccountGroups,
   getAccountGroupsSuccess,
   createAccount,
-  createAccountSuccess,
+  deleteAccount,
 } from './reducer'
 import { hideModal } from 'src/redux/global-modal/reducer'
-import { fetchBooks, fetchAccounts, fetchAccountGroups, apiCreateAccount } from 'src/api/account'
+import { fetchBooks, fetchAccounts, fetchAccountGroups, apiCreateAccount, apiDeleteAccount } from 'src/api/account'
 import type { RootState } from 'src/redux/root_store'
 import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType } from 'src/types'
 
@@ -21,6 +21,7 @@ export function* accountSaga() {
   yield takeLatest(getAccounts, watchGetAccounts)
   yield takeLatest(getAccountGroups, watchGetAccountGroups)
   yield takeLatest(createAccount, watchCreateAccount)
+  yield takeLatest(deleteAccount, watchDeleteAccount)
 }
 
 function* watchGetBooks() {
@@ -48,9 +49,14 @@ function* watchGetAccountGroups() {
 
 function* watchCreateAccount(action: PayloadAction<RequestParamType<CreateAccountParam>>) {
   const res: Response<Account[]> = yield call(apiCreateAccount, action.payload)
-  console.log('%c [ res ]', 'font-size:13px; background:pink; color:#bf2c9f;', res)
   if (res.status) {
     yield put(hideModal())
-    yield put(createAccountSuccess(res.data))
+    yield put(getAccountsSuccess(res.data))
   }
+}
+
+function* watchDeleteAccount(action: PayloadAction<string>) {
+  yield call(apiDeleteAccount, action.payload)
+  const state: RootState = yield select()
+  yield put(getAccounts(state.account.currentBookId))
 }

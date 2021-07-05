@@ -10,8 +10,9 @@ import { Account, AccountGroup } from 'src/types'
 
 const Account = () => {
   const dispatch = useAppDispatch()
-  const { accounts, accountGroups } = useAppSelector((state) => state.account)
+  const { accounts, accountGroups, accountMapByGroupId, accountMapById } = useAppSelector((state) => state.account)
   const [selectKey, setSelectedKey] = useState<string>('')
+  const [currentAccount, setCurrentAccount] = useState<Account>()
 
   useEffect(() => {
     dispatch(getAccountGroups())
@@ -22,13 +23,13 @@ const Account = () => {
     if (!accounts.length || !accountGroups.length) {
       return []
     }
-    const menuGroupBy = _.groupBy(accounts, 'group')
+
     const _menuDatas: { group: AccountGroup; sub: Account[] }[] = []
 
     _.forEach(accountGroups, (group) => {
       _menuDatas.push({
         group,
-        sub: menuGroupBy[group._id],
+        sub: accountMapByGroupId[group._id],
       })
     })
 
@@ -36,8 +37,25 @@ const Account = () => {
   }, [accounts, accountGroups])
 
   useEffect(() => {
-    setSelectedKey(menuDatas[0]?.sub[0]?._id)
+    const accountId = getSelectKey()
+    setSelectedKey(accountId)
+    setCurrentAccount(accountMapById[accountId])
   }, [menuDatas])
+
+  const getSelectKey = (): string => {
+    if (selectKey && currentAccount) {
+      // selectKey 能在 account 列表中找到
+      if (_.find(accounts, (account) => account._id === selectKey)) {
+        return selectKey
+      } else {
+        // selectKey 对应 account 被删除情况下，更改选中当前 group 的第一个 account
+        if (accountMapByGroupId[currentAccount.group].length) {
+          return accountMapByGroupId[currentAccount.group][0]._id
+        }
+      }
+    }
+    return menuDatas[0]?.sub[0]?._id || ''
+  }
 
   const handleSelect = (keys: string[]) => {
     setSelectedKey(keys[0])

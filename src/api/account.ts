@@ -16,3 +16,7 @@ export const fetchAccountGroups = () => {
 export const apiCreateAccount = (params: RequestParamType<CreateAccountParam>) => {
   return Request<Account[]>('/mymoney/account/create').data(params).post()
 }
+
+export const apiDeleteAccount = (id: string) => {
+  return Request<Account[]>('/mymoney/account/delete').data({ id }).post()
+}

@@ -15,7 +15,6 @@ const AccountModifyForm: FC<IProps> = ({ currentGroupId }) => {
   const currentGroup = _.find(accountGroups, (group) => group._id === currentGroupId)
 
   const handleSubmit = (values: any) => {
-    console.log('%c [ values ]', 'font-size:13px; background:pink; color:#bf2c9f;', values)
     const { name, type, balance } = values
     dispatch(
       createAccount({
