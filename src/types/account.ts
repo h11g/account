@@ -23,3 +23,17 @@ export interface Account {
   balance: number
   _id: string
 }
+
+export interface CreateAccountParam {
+  name: string
+  type: string
+  group: string
+  book_id: string
+  balance: number
+}
+
+interface RequestParamBase {
+  paging?: any
+}
+
+export type RequestParamType<T> = RequestParamBase & T

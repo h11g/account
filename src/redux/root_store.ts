@@ -7,7 +7,15 @@ const sagaMiddleWare = createSagaMiddleware()
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false }).concat(sagaMiddleWare),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: false,
+      serializableCheck: {
+        // ignoredActions: ['globalModal/showModal'],
+        ignoredActionPaths: ['payload.content'],
+        ignoredPaths: ['globalModal.content'],
+      },
+    }).concat(sagaMiddleWare),
 })
 
 sagaMiddleWare.run(rootSaga)

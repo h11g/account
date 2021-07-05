@@ -8,15 +8,19 @@ import {
   getAccountsSuccess,
   getAccountGroups,
   getAccountGroupsSuccess,
+  createAccount,
+  createAccountSuccess,
 } from './reducer'
-import { fetchBooks, fetchAccounts, fetchAccountGroups } from 'src/api/account'
+import { hideModal } from 'src/redux/global-modal/reducer'
+import { fetchBooks, fetchAccounts, fetchAccountGroups, apiCreateAccount } from 'src/api/account'
 import type { RootState } from 'src/redux/root_store'
-import { Book, Account, AccountGroup } from 'src/types'
+import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType } from 'src/types'
 
 export function* accountSaga() {
   yield takeLatest(getBooks, watchGetBooks)
   yield takeLatest(getAccounts, watchGetAccounts)
   yield takeLatest(getAccountGroups, watchGetAccountGroups)
+  yield takeLatest(createAccount, watchCreateAccount)
 }
 
 function* watchGetBooks() {
@@ -39,5 +43,14 @@ function* watchGetAccountGroups() {
   const res: Response<AccountGroup[]> = yield call(fetchAccountGroups)
   if (res.status) {
     yield put(getAccountGroupsSuccess(res.data))
+  }
+}
+
+function* watchCreateAccount(action: PayloadAction<RequestParamType<CreateAccountParam>>) {
+  const res: Response<Account[]> = yield call(apiCreateAccount, action.payload)
+  console.log('%c [ res ]', 'font-size:13px; background:pink; color:#bf2c9f;', res)
+  if (res.status) {
+    yield put(hideModal())
+    yield put(createAccountSuccess(res.data))
   }
 }

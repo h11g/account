@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
 import { Menu } from 'antd'
 import _ from 'lodash'
+import { useAppDispatch } from 'src/hooks'
 import { Account, AccountGroup } from 'src/types'
+import { showModal } from 'src/redux/global-modal/reducer'
+import AccountModifyForm from './account-modify-form'
 
 const { SubMenu } = Menu
 
@@ -12,6 +15,8 @@ interface IProps {
 }
 
 const MenuBar: FC<IProps> = ({ menus, selectedKeys, onSelected }) => {
+  const dispatch = useAppDispatch()
+
   const handleSelect = ({ selectedKeys }: any) => {
     onSelected(selectedKeys)
   }
@@ -24,6 +29,18 @@ const MenuBar: FC<IProps> = ({ menus, selectedKeys, onSelected }) => {
     return menu.group._id
   })
 
+  const handleGroupTitleClick = (data: { group: AccountGroup; sub: Account[] }) => {
+    if (!data.sub) {
+      dispatch(
+        showModal({
+          title: '新建账户',
+          content: <AccountModifyForm currentGroupId={data.group._id} />,
+          footer: null,
+        })
+      )
+    }
+  }
+
   return (
     <Menu
       style={{ width: 256 }}
@@ -33,7 +50,7 @@ const MenuBar: FC<IProps> = ({ menus, selectedKeys, onSelected }) => {
       onSelect={handleSelect}
     >
       {_.map(menus, (data) => (
-        <SubMenu key={data.group._id} title={data.group.name}>
+        <SubMenu key={data.group._id} title={data.group.name} onTitleClick={() => handleGroupTitleClick(data)}>
           {_.map(data.sub, (account) => (
             <Menu.Item key={account._id}>{account.name}</Menu.Item>
           ))}

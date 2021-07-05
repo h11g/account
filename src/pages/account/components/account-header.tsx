@@ -1,15 +1,18 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Card, Row, Col, Statistic, Divider, Button, Modal } from 'antd'
-import { useAppSelector } from 'src/hooks'
+import { Card, Row, Col, Statistic, Divider, Button } from 'antd'
+import { useAppSelector, useAppDispatch } from 'src/hooks'
 import _ from 'lodash'
 import { Account } from 'src/types'
 import { positiveColor, negativeColor, banlanceColor } from 'common/color'
+import { showModal } from 'src/redux/global-modal/reducer'
+import AccountModifyForm from './account-modify-form'
 
 interface IProps {
   accountId: string
 }
 
 const AccountHeader: FC<IProps> = ({ accountId }) => {
+  const dispatch = useAppDispatch()
   const { accounts } = useAppSelector((state) => state.account)
   const [account, setCurrentAccount] = useState<Account>()
 
@@ -19,7 +22,13 @@ const AccountHeader: FC<IProps> = ({ accountId }) => {
   }, [accountId])
 
   const handleCreateAccount = () => {
-    console.log('create')
+    dispatch(
+      showModal({
+        title: '新建账户',
+        content: <AccountModifyForm currentGroupId={account?.group as string} />,
+        footer: null,
+      })
+    )
   }
 
   return (
@@ -27,7 +36,11 @@ const AccountHeader: FC<IProps> = ({ accountId }) => {
       hoverable
       bordered={false}
       title={account?.name}
-      extra={<Button onClick={handleCreateAccount}>添加账户</Button>}
+      extra={
+        <Button type='primary' onClick={handleCreateAccount}>
+          添加账户
+        </Button>
+      }
     >
       <Row justify='center' align='middle' gutter={24}>
         <Col span={6}>

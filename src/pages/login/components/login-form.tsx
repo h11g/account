@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import { Form, Input, Button } from 'antd'
-import { useHistory } from 'react-router-dom'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Request } from 'common/request'
 const FormItem = Form.Item
@@ -10,8 +9,6 @@ interface IProps {
 }
 
 const LoginForm: FC<IProps> = ({ toRegist }) => {
-  const history = useHistory()
-
   const handleLogin = (values: any) => {
     Request<AuthResponse>('/mymoney/auth/login')
       .data({ username: values.username, password: values.password })

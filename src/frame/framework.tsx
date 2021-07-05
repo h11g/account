@@ -1,5 +1,6 @@
 import React, { FC, memo, HTMLAttributes, ReactNode } from 'react'
 import { Layout } from 'antd'
+import { GlobalModal } from 'common/components'
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   isFullScreen?: boolean
@@ -24,6 +25,7 @@ const Framework: FC<IProps> = ({ children, isFullScreen, header }) => {
           <Footer className='tw-text-center'>账本 ©2021 Created by h11g</Footer>
         </Layout>
       )}
+      <GlobalModal />
     </div>
   )
 }
