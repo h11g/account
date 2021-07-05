@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState, useRef } from 'react'
 import _ from 'lodash'
 import { Space } from 'antd'
 import MenuBar from './components/menu-bar'
@@ -12,7 +12,7 @@ const Account = () => {
   const dispatch = useAppDispatch()
   const { accounts, accountGroups, accountMapByGroupId, accountMapById } = useAppSelector((state) => state.account)
   const [selectKey, setSelectedKey] = useState<string>('')
-  const [currentAccount, setCurrentAccount] = useState<Account>()
+  const accountRef = useRef<Account | null>(null)
 
   useEffect(() => {
     dispatch(getAccountGroups())
@@ -36,21 +36,24 @@ const Account = () => {
     return _menuDatas
   }, [accounts, accountGroups])
 
+  accountRef.current = useMemo(() => {
+    return accountMapById[selectKey]
+  }, [selectKey])
+
   useEffect(() => {
     const accountId = getSelectKey()
     setSelectedKey(accountId)
-    setCurrentAccount(accountMapById[accountId])
   }, [menuDatas])
 
   const getSelectKey = (): string => {
-    if (selectKey && currentAccount) {
+    if (selectKey && accountRef && accountRef.current) {
       // selectKey 能在 account 列表中找到
       if (_.find(accounts, (account) => account._id === selectKey)) {
         return selectKey
       } else {
         // selectKey 对应 account 被删除情况下，更改选中当前 group 的第一个 account
-        if (accountMapByGroupId[currentAccount.group].length) {
-          return accountMapByGroupId[currentAccount.group][0]._id
+        if (accountMapByGroupId[accountRef.current.group].length) {
+          return accountMapByGroupId[accountRef.current.group][0]._id
         }
       }
     }
