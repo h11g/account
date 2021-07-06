@@ -32,6 +32,8 @@ export interface CreateAccountParam {
   balance: number
 }
 
+export type UpdateAccountParam = { id: string } & Omit<CreateAccountParam, 'group' | 'book_id'>
+
 interface RequestParamBase {
   paging?: any
 }

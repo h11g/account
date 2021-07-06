@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType } from 'src/types'
+import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType, UpdateAccountParam } from 'src/types'
 import _ from 'lodash'
 
 interface SliceState {
@@ -38,7 +38,7 @@ const accountSlice = createSlice({
       state.accountGroups = action.payload
       state.accountGroupMapById = _.keyBy(action.payload, '_id')
     },
-    getAccounts: (state, action: PayloadAction<string>) => state,
+    getAccounts: (state) => state,
     getAccountsSuccess: (state, action: PayloadAction<Account[]>) => {
       state.accounts = action.payload
       state.accountMapById = _.keyBy(action.payload, '_id')
@@ -46,6 +46,7 @@ const accountSlice = createSlice({
     },
     createAccount: (state, action: PayloadAction<RequestParamType<CreateAccountParam>>) => state,
     deleteAccount: (state, action: PayloadAction<string>) => state,
+    updateAccount: (state, action: PayloadAction<RequestParamType<UpdateAccountParam>>) => state,
   },
 })
 
@@ -58,5 +59,6 @@ export const {
   getAccountGroupsSuccess,
   createAccount,
   deleteAccount,
+  updateAccount,
 } = accountSlice.actions
 export default accountSlice.reducer

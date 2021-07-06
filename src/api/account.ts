@@ -1,5 +1,5 @@
 import { Request } from 'common/request'
-import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType } from 'src/types'
+import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType, UpdateAccountParam } from 'src/types'
 
 export const fetchBooks = () => {
   return Request<Book[]>('/mymoney/book/list').post()
@@ -19,4 +19,8 @@ export const apiCreateAccount = (params: RequestParamType<CreateAccountParam>) =
 
 export const apiDeleteAccount = (id: string) => {
   return Request<Account[]>('/mymoney/account/delete').data({ id }).post()
+}
+
+export const apiUpdateAccount = (params: RequestParamType<UpdateAccountParam>) => {
+  return Request<Account[]>('/mymoney/account/update').data(params).post()
 }

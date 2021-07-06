@@ -10,11 +10,19 @@ import {
   getAccountGroupsSuccess,
   createAccount,
   deleteAccount,
+  updateAccount,
 } from './reducer'
 import { hideModal } from 'src/redux/global-modal/reducer'
-import { fetchBooks, fetchAccounts, fetchAccountGroups, apiCreateAccount, apiDeleteAccount } from 'src/api/account'
+import {
+  fetchBooks,
+  fetchAccounts,
+  fetchAccountGroups,
+  apiCreateAccount,
+  apiDeleteAccount,
+  apiUpdateAccount,
+} from 'src/api/account'
 import type { RootState } from 'src/redux/root_store'
-import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType } from 'src/types'
+import { Book, Account, AccountGroup, CreateAccountParam, RequestParamType, UpdateAccountParam } from 'src/types'
 
 export function* accountSaga() {
   yield takeLatest(getBooks, watchGetBooks)
@@ -22,19 +30,20 @@ export function* accountSaga() {
   yield takeLatest(getAccountGroups, watchGetAccountGroups)
   yield takeLatest(createAccount, watchCreateAccount)
   yield takeLatest(deleteAccount, watchDeleteAccount)
+  yield takeLatest(updateAccount, watchUpdateAccount)
 }
 
 function* watchGetBooks() {
   const res: Response<Book[]> = yield call(fetchBooks)
   if (res.status) {
     yield put(getBooksSuccess(res.data))
-    const state: RootState = yield select()
-    yield put(getAccounts(state.account.currentBookId))
+    yield put(getAccounts())
   }
 }
 
-function* watchGetAccounts(action: PayloadAction<string>) {
-  const res: Response<Account[]> = yield call(fetchAccounts, action.payload)
+function* watchGetAccounts() {
+  const state: RootState = yield select()
+  const res: Response<Account[]> = yield call(fetchAccounts, state.account.currentBookId)
   if (res.status) {
     yield put(getAccountsSuccess(res.data))
   }
@@ -56,7 +65,16 @@ function* watchCreateAccount(action: PayloadAction<RequestParamType<CreateAccoun
 }
 
 function* watchDeleteAccount(action: PayloadAction<string>) {
-  yield call(apiDeleteAccount, action.payload)
-  const state: RootState = yield select()
-  yield put(getAccounts(state.account.currentBookId))
+  const res: Response<null> = yield call(apiDeleteAccount, action.payload)
+  if (res.status) {
+    yield put(getAccounts())
+  }
+}
+
+function* watchUpdateAccount(action: PayloadAction<RequestParamType<UpdateAccountParam>>) {
+  const res: Response<null> = yield call(apiUpdateAccount, action.payload)
+  if (res.status) {
+    yield put(hideModal())
+    yield put(getAccounts())
+  }
 }

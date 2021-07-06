@@ -2,29 +2,47 @@ import React, { FC } from 'react'
 import { Form, Input, Select, Button, InputNumber } from 'antd'
 import { useAppSelector, useAppDispatch } from 'src/hooks'
 import _ from 'lodash'
-import { createAccount } from 'src/redux/account/reducer'
+import { createAccount, updateAccount } from 'src/redux/account/reducer'
+import { Account } from 'src/types'
 
 interface IProps {
   currentGroupId: string
+  type?: 'edit' | 'create'
+  account?: Account
 }
 
-const AccountModifyForm: FC<IProps> = ({ currentGroupId }) => {
+const AccountModifyForm: FC<IProps> = ({ currentGroupId, type = 'create', account }) => {
   const dispatch = useAppDispatch()
   const { accountGroups, currentBookId } = useAppSelector((state) => state.account)
 
   const currentGroup = _.find(accountGroups, (group) => group._id === currentGroupId)
 
   const handleSubmit = (values: any) => {
-    const { name, type, balance } = values
-    dispatch(
-      createAccount({
-        name,
-        type,
-        group: currentGroupId,
-        balance,
-        book_id: currentBookId,
-      })
-    )
+    const { name, type: account_type, balance } = values
+    if (type === 'create') {
+      dispatch(
+        createAccount({
+          name,
+          type: account_type,
+          group: currentGroupId,
+          balance,
+          book_id: currentBookId,
+        })
+      )
+    } else if (type === 'edit' && account) {
+      dispatch(
+        updateAccount({
+          id: account._id,
+          name,
+          type: account_type,
+          balance,
+        })
+      )
+    }
+  }
+
+  if (type === 'edit' && !account) {
+    console.warn('AccountModifyForm 缺少 account 信息')
   }
 
   return (
@@ -32,6 +50,7 @@ const AccountModifyForm: FC<IProps> = ({ currentGroupId }) => {
       <Form.Item
         label='名称'
         name='name'
+        initialValue={account?.name}
         rules={[
           {
             required: true,
@@ -44,6 +63,7 @@ const AccountModifyForm: FC<IProps> = ({ currentGroupId }) => {
       <Form.Item
         label='账户类型'
         name='type'
+        initialValue={account?.type}
         rules={[
           {
             required: true,
@@ -59,7 +79,7 @@ const AccountModifyForm: FC<IProps> = ({ currentGroupId }) => {
           ))}
         </Select>
       </Form.Item>
-      <Form.Item label='余额' name='balance' initialValue={0}>
+      <Form.Item label='余额' name='balance' initialValue={account?.balance || 0}>
         <InputNumber style={{ width: 150 }} min={0} precision={2} step={1000} />
       </Form.Item>
 

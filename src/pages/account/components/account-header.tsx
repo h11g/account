@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Card, Row, Col, Statistic, Divider, Dropdown, Menu, Modal } from 'antd'
-import { DownOutlined, DeleteOutlined } from '@ant-design/icons'
+import { DownOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useAppSelector, useAppDispatch } from 'src/hooks'
 import _ from 'lodash'
 import { Account } from 'src/types'
@@ -14,18 +14,18 @@ interface IProps {
 }
 
 enum MenuType {
+  EDIT = 'edit',
   DELETE = 'delete',
 }
 
 const AccountHeader: FC<IProps> = ({ accountId }) => {
   const dispatch = useAppDispatch()
-  const { accounts } = useAppSelector((state) => state.account)
+  const { accountMapById } = useAppSelector((state) => state.account)
   const [account, setCurrentAccount] = useState<Account>()
 
   useEffect(() => {
-    const acc = _.find(accounts, (account) => account._id === accountId)
-    setCurrentAccount(acc)
-  }, [accountId])
+    setCurrentAccount(accountMapById[accountId])
+  }, [accountId, accountMapById])
 
   const handleCreateAccount = () => {
     dispatch(
@@ -39,6 +39,15 @@ const AccountHeader: FC<IProps> = ({ accountId }) => {
 
   const handleMenuItemClick = ({ key }: any) => {
     switch (key as MenuType) {
+      case MenuType.EDIT:
+        dispatch(
+          showModal({
+            title: '修改账户',
+            content: <AccountModifyForm currentGroupId={account?.group as string} account={account} type='edit' />,
+            footer: null,
+          })
+        )
+        break
       case MenuType.DELETE:
         Modal.confirm({
           title: '提示',
@@ -57,6 +66,9 @@ const AccountHeader: FC<IProps> = ({ accountId }) => {
 
   const menu = (
     <Menu onClick={handleMenuItemClick}>
+      <Menu.Item key={MenuType.EDIT} icon={<EditOutlined />}>
+        修改账户
+      </Menu.Item>
       <Menu.Item danger key={MenuType.DELETE} icon={<DeleteOutlined />}>
         删除账户
       </Menu.Item>
