@@ -71,7 +71,7 @@ const AccountModifyForm: FC<IProps> = ({ currentGroupId, type = 'create', accoun
           },
         ]}
       >
-        <Select>
+        <Select placeholder='请选择账户类型'>
           {_.map(currentGroup?.account_type, (type) => (
             <Select.Option key={type.id} value={type.id}>
               {type.name}
