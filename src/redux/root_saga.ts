@@ -1,6 +1,7 @@
 import { all, take, select } from 'redux-saga/effects'
 import { userSaga } from './user/saga'
 import { accountSaga } from './account/saga'
+import { categorySaga } from './category/saga'
 
 function* loggerSaga(): Generator<any, any, any> {
   while (true) {
@@ -13,7 +14,7 @@ function* loggerSaga(): Generator<any, any, any> {
 }
 
 export default function* rootSaga() {
-  const sagas: any[] = [userSaga(), accountSaga()]
+  const sagas: any[] = [userSaga(), accountSaga(), categorySaga()]
   if (process.env.NODE_ENV !== 'production') {
     sagas.push(loggerSaga())
   }
