@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -170,7 +169,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new AntdDayjsWebpackPlugin(),
     new CopyPlugin({
       patterns: [
         {
