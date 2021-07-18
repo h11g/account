@@ -23,8 +23,16 @@ const OutlayForm = () => {
   }
 
   return (
-    <Form layout='inline' onFinish={handleSubmit}>
-      <FormItem name='category'>
+    <Form layout='inline' onFinish={handleSubmit} scrollToFirstError>
+      <FormItem
+        name='category'
+        rules={[
+          {
+            required: true,
+            message: '请选择分类',
+          },
+        ]}
+      >
         <Cascader
           options={categories}
           fieldNames={{ label: 'name', value: '_id', children: 'category_2' }}
@@ -33,8 +41,16 @@ const OutlayForm = () => {
         />
       </FormItem>
 
-      <FormItem name='account'>
-        <Select placeholder='请选择账户'>
+      <FormItem
+        name='account'
+        rules={[
+          {
+            required: true,
+            message: '请选择账户',
+          },
+        ]}
+      >
+        <Select placeholder='请选择账户' style={{ width: 150 }}>
           {_.map(accounts, (acc) => (
             <Select.Option key={acc._id} value={acc._id}>
               {acc.name}
